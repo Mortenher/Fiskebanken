@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.morten.fiskebanken.RegisterActivity">
+
+    <EditText
+        android:id="@+id/fisketype"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/fisketypen"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/fiskevekt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/vekt"
+        android:inputType="numberDecimal"
+        android:layout_below="@id/fisketype"/>
+    <EditText
+        android:id="@+id/fiskelengde"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lengde"
+        android:layout_below="@id/fiskevekt"/>
+    <Button
+        android:id="@+id/registrerfisk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/registrer"
+        android:layout_below="@id/fiskelengde"/>
+    <Button
+        android:id="@+id/tabilde"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ta bilde"
+        android:layout_below="@id/fiskelengde"
+        android:layout_toRightOf="@id/registrerfisk"
+        android:layout_toEndOf="@id/registrerfisk"/>
+    <ImageView
+        android:id="@+id/finnbilde"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
