@@ -66,8 +66,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                         Fisk fisk = fishDataSource.createFisk(mEdit1.getText().toString(),
                                 Double.parseDouble(mEdit2.getText().toString()),
-                                Double.parseDouble(mEdit3.getText().toString())
-                                //mCurrentPhotoPath
+                                Double.parseDouble(mEdit3.getText().toString()),
+                                mCurrentPhotoPath
 
                                );
 

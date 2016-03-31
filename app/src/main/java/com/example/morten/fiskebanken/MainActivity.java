@@ -55,4 +55,8 @@ public class MainActivity extends AppCompatActivity {
     public void startShowfishActivity(View view){
         startActivity(new Intent(this, ShowfishActivity.class));
     }
+
+    public void startMapsActivity(View view){
+        startActivity(new Intent(this, MapsActivity.class));
+    }
 }

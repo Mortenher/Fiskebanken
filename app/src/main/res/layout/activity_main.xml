@@ -63,6 +63,13 @@
                 android:layout_marginTop="76dp"
                 android:text="@string/start_showfish_activity"
                 android:onClick="startShowfishActivity" />
+            <Button
+                android:id="@+id/mapsbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="76dp"
+                android:text="Kart"
+                android:onClick="startMapsActivity"/>
 
 
         </LinearLayout>

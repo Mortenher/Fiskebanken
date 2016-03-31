@@ -23,20 +23,20 @@ public class FishDataSource {
             FishTable.COLUMN_ID,
             FishTable.COLUMN_TYPE,
             FishTable.COLUMN_VEKT,
-            FishTable.COLUMN_LENGDE
-           // FishTable.COLUMN_BILDE
+            FishTable.COLUMN_LENGDE,
+            FishTable.COLUMN_BILDE
     };
 
     public FishDataSource(Context context){
         dbHelper = new SQLiteHelper(context);
     }
 
-    public Fisk createFisk(String type, double vekt, double lengde){
+    public Fisk createFisk(String type, double vekt, double lengde, String bilde){
         ContentValues values = new ContentValues();
         values.put(FishTable.COLUMN_TYPE, type);
         values.put(FishTable.COLUMN_VEKT, vekt);
         values.put(FishTable.COLUMN_LENGDE, lengde);
-       // values.put(FishTable.COLUMN_BILDE, bilde);
+        values.put(FishTable.COLUMN_BILDE, bilde);
 
         long insertId = database.insert(FishTable.TABLE_FISH, null, values);
 
@@ -49,7 +49,7 @@ public class FishDataSource {
         fisk.setType(cursor.getString(1));
         fisk.setVekt(cursor.getDouble(2));
         fisk.setLengde(cursor.getDouble(3));
-        //fisk.setBilde(cursor.getString(4));
+        fisk.setBilde(cursor.getString(4));
 
         return fisk;
     }

@@ -37,5 +37,12 @@
         android:layout_below="@id/vekt"
         android:textSize="15sp"
         android:text="@string/lengde"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fisk_thumbnail"
+        android:layout_alignBottom="@+id/lengde"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>
