@@ -9,4 +9,11 @@
     <string name="registrer">Registrer</string>
     <string name="start_showfish_activity">Vis fisker</string>
     <string name="title_activity_maps">Map</string>
+    <string name="normal">Normal</string>
+    <string name="hybrid">Hybrid</string>
+    <string name="satellite">Satellite</string>
+    <string name="terrain">Terrain</string>
+    <string name="none">None</string>
+    <string name="add_fisk">Fish attack!</string>
+    <string name="remove_fisk">Remove fish</string>
 </resources>
