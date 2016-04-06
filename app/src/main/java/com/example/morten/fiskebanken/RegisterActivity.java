@@ -109,6 +109,7 @@ public class RegisterActivity extends AppCompatActivity{
     private void sendImageToMap(){
         Intent i = new Intent("ForceLocationUpdate");
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+        System.out.println("git commit");
     }
 
    /* LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
