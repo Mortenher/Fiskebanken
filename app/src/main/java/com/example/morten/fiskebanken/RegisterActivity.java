@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,14 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.location.LocationListener;
+import android.widget.Toast;
 
 import com.example.morten.fiskebanken.database.FishDataSource;
 import com.example.morten.fiskebanken.database.SQLiteHelper;
-
-import com.google.android.gms.common.api.GoogleApiClient;
-//import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
+import com.example.morten.fiskebanken.FiskeService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,6 +34,8 @@ import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity{
 
+
+
     static Bitmap photo;
     private static FishDataSource fishDataSource;
     private int fishNumber = 0;
@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity{
     EditText mEdit3;
     ImageView mImageView;
     LocationFinder mLocationFinder;
+   // private FiskeService fiskeService;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -79,11 +80,15 @@ public class RegisterActivity extends AppCompatActivity{
                                 Double.parseDouble(mEdit3.getText().toString()),
                                 mCurrentPhotoPath
 
-                               );
+                        );
 
-                       MapsActivity.addFishMarker(mLocationFinder.mLastLocation,"Fish");
+                        sendImageToMap();
 
-                        //Log.d("EditText", mEdit1.getText().toString() + " " + mEdit2.getText().toString() + " " + mEdit3.getText().toString());
+
+                        //System.out.println(mLocationFinder.GetPosition());
+                        //   MapsActivity.addFishMarker(mLocationFinder.GetPosition(), "Fish");
+
+
                     }
                 }
         );
@@ -96,10 +101,15 @@ public class RegisterActivity extends AppCompatActivity{
                     }
                 }
         );
+        System.out.println("Starter den");
+        startService(new Intent(this, FiskeService.class));
+        System.out.println("Ja den startet");
     }
 
-
-
+    private void sendImageToMap(){
+        Intent i = new Intent("ForceLocationUpdate");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+    }
 
    /* LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
     Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);

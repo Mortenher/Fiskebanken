@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBarActivity;
@@ -170,18 +171,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapLongClick(LatLng latLng) {
-        addFishMarker(latLng, "Fish image!");
+        //addFishMarker(latLng, "Fish image!");
     }
 
-    static void addFishMarker(LatLng fishLocation, String snippet){
+    static void addFishMarker(Location fishLocation, String snippet){
 
         //BitmapDescriptor kittenIcon = BitmapDescriptorFactory.fromResource(
              //   getResources().getIdentifier("fish_background" + (mFishCounter % 3 + 1), "drawable", this.getPackageName()));
 
         mFishCounter++;
+        LatLng tempLoc = new LatLng(fishLocation.getLatitude(),fishLocation.getLongitude());
 
         MarkerOptions markerOptions = new MarkerOptions()
-                .position(fishLocation)
+                .position(tempLoc)
                 .title("Pelle den " + mFishCounter + ".")
                 .snippet(snippet);
 
