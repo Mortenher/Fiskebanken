@@ -1,8 +1,11 @@
 package com.example.morten.fiskebanken;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -13,9 +16,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.location.LocationListener;
 
 import com.example.morten.fiskebanken.database.FishDataSource;
 import com.example.morten.fiskebanken.database.SQLiteHelper;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+//import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -25,7 +34,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity{
 
     static Bitmap photo;
     private static FishDataSource fishDataSource;
@@ -36,9 +45,10 @@ public class RegisterActivity extends AppCompatActivity {
     EditText mEdit2;
     EditText mEdit3;
     ImageView mImageView;
+    LocationFinder mLocationFinder;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -71,6 +81,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                                );
 
+                       MapsActivity.addFishMarker(mLocationFinder.mLastLocation,"Fish");
+
                         //Log.d("EditText", mEdit1.getText().toString() + " " + mEdit2.getText().toString() + " " + mEdit3.getText().toString());
                     }
                 }
@@ -85,6 +97,22 @@ public class RegisterActivity extends AppCompatActivity {
                 }
         );
     }
+
+
+
+
+   /* LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    double longitude = location.getLongitude();
+    double latitude = location.getLatitude();
+
+    private final LocationListener locationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        }
+    };*/
+
 
     String mCurrentPhotoPath;
 

@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Property;
 import android.view.View;
 import android.view.Menu;
@@ -39,11 +40,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         AdapterView.OnItemSelectedListener,
         GoogleMap.OnMapLongClickListener {
 
-    private GoogleMap mMap;
+    static GoogleMap mMap;
 
     private LatLng HIOF = new LatLng(59.12797849, 11.35272861);
-    private ArrayList<Marker> mFishMarkers;
-    private int mFishCounter = 0;
+   static private ArrayList<Marker> mFishMarkers;
+   static private int mFishCounter = 0;
     Fisk fisk;
 
     @Override
@@ -94,7 +95,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     animateMarker(fishMarker, HIOF);
                 break;
             case R.id.remove_fisk:
-                removeAllKittyMarkers();
+                removeAllFishMarkers();
                 break;
             default:
                 break;
@@ -103,9 +104,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return super.onOptionsItemSelected(item);
     }
 
-    private void removeAllKittyMarkers(){
-        for (Marker kittyMarker: mFishMarkers){
-            kittyMarker.remove();
+    private void removeAllFishMarkers(){
+        for (Marker fishMarker: mFishMarkers){
+            fishMarker.remove();
         }
         mFishMarkers.clear();
         mFishCounter = 0;
@@ -172,18 +173,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         addFishMarker(latLng, "Fish image!");
     }
 
-    private void addFishMarker(LatLng kittenLocation, String snippet){
+    static void addFishMarker(LatLng fishLocation, String snippet){
 
-        BitmapDescriptor kittenIcon = BitmapDescriptorFactory.fromResource(
-                getResources().getIdentifier("fish_background" + (mFishCounter % 3 + 1), "drawable", this.getPackageName()));
+        //BitmapDescriptor kittenIcon = BitmapDescriptorFactory.fromResource(
+             //   getResources().getIdentifier("fish_background" + (mFishCounter % 3 + 1), "drawable", this.getPackageName()));
 
         mFishCounter++;
 
         MarkerOptions markerOptions = new MarkerOptions()
-                .position(kittenLocation)
+                .position(fishLocation)
                 .title("Pelle den " + mFishCounter + ".")
-                .snippet(snippet)
-                .icon(kittenIcon);
+                .snippet(snippet);
+
+
+
+      //  Log.d("Marker", kittenLocation.toString());
 
         Marker fishMarker = mMap.addMarker(markerOptions);
         mFishMarkers.add(fishMarker);
