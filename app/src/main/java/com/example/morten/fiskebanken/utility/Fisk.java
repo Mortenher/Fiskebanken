@@ -1,4 +1,4 @@
-package com.example.morten.fiskebanken;
+package com.example.morten.fiskebanken.utility;
 
 /**
  * Created by Morten on 23.02.2016.

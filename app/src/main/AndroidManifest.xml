@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -32,10 +32,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ShowfishActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.ShowfishActivity" />
       <!--  <activity android:name=".FishListAdapter" /> -->
-        <service android:name=".FiskeService"
+        <service android:name=".services.FiskeService"
             android:enabled="true"
             android:exported="true" />
         <!--
@@ -51,7 +51,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
     </application>
 

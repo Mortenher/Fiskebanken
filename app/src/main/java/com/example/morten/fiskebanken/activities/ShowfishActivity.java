@@ -1,18 +1,14 @@
-package com.example.morten.fiskebanken;
+package com.example.morten.fiskebanken.activities;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.morten.fiskebanken.utility.FishListAdapter;
+import com.example.morten.fiskebanken.utility.Fisk;
+import com.example.morten.fiskebanken.R;
 import com.example.morten.fiskebanken.database.FishDataSource;
-import com.example.morten.fiskebanken.RegisterActivity;
-import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
+
 import java.sql.SQLException;
 import java.util.List;
 

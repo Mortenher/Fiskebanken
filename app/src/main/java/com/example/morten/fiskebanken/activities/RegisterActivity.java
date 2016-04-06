@@ -1,33 +1,26 @@
-package com.example.morten.fiskebanken;
+package com.example.morten.fiskebanken.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.location.LocationListener;
-import android.widget.Toast;
 
+import com.example.morten.fiskebanken.utility.Fisk;
+import com.example.morten.fiskebanken.R;
 import com.example.morten.fiskebanken.database.FishDataSource;
-import com.example.morten.fiskebanken.database.SQLiteHelper;
-import com.example.morten.fiskebanken.FiskeService;
+import com.example.morten.fiskebanken.services.FiskeService;
+import com.example.morten.fiskebanken.services.LocationFinder;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -97,33 +90,20 @@ public class RegisterActivity extends AppCompatActivity{
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                       dispatchTakePictureIntent();
+                        dispatchTakePictureIntent();
                     }
                 }
         );
-        System.out.println("Starter den");
+
         startService(new Intent(this, FiskeService.class));
-        System.out.println("Ja den startet");
+
     }
 
     private void sendImageToMap(){
         Intent i = new Intent("ForceLocationUpdate");
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
-        System.out.println("git commit");
+        MapsActivity.addFishMarker(mLocationFinder.GetPosition(), "Fish");
     }
-
-   /* LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-    double longitude = location.getLongitude();
-    double latitude = location.getLatitude();
-
-    private final LocationListener locationListener = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            longitude = location.getLongitude();
-            latitude = location.getLatitude();
-        }
-    };*/
-
 
     String mCurrentPhotoPath;
 

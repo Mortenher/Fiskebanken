@@ -1,10 +1,8 @@
-package com.example.morten.fiskebanken;
+package com.example.morten.fiskebanken.utility;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.morten.fiskebanken.R;
 
 public class FishListAdapter extends ArrayAdapter<Fisk> {
 

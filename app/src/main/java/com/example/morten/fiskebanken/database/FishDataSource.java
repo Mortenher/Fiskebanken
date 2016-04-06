@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.morten.fiskebanken.Fisk;
+import com.example.morten.fiskebanken.utility.Fisk;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

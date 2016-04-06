@@ -1,11 +1,10 @@
-package com.example.morten.fiskebanken;
+package com.example.morten.fiskebanken.services;
 
 import android.app.IntentService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
@@ -26,7 +25,6 @@ public class FiskeService extends IntentService{
     }
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
     @Override
@@ -36,7 +34,6 @@ public class FiskeService extends IntentService{
     @Override
     public void onCreate(){
 
-        System.out.println("KOMMER DEN HIT?");
         locationFinder = new LocationFinder(this);
 
         forceUpdateReciever = new BroadcastReceiver() {
