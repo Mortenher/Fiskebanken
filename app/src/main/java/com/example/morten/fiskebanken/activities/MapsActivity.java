@@ -42,6 +42,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
    static private int mFishCounter = 0;
     Fisk fisk;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,24 +169,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //addFishMarker(latLng, "Fish image!");
     }
 
-    static void addFishMarker(Location fishLocation, String snippet){
+    static void addFishMarker(Location fishLocation){
 
         //BitmapDescriptor kittenIcon = BitmapDescriptorFactory.fromResource(
              //   getResources().getIdentifier("fish_background" + (mFishCounter % 3 + 1), "drawable", this.getPackageName()));
 
-        mFishCounter++;
-        LatLng tempLoc = new LatLng(fishLocation.getLatitude(),fishLocation.getLongitude());
+        //mFishCounter++;
+       // LatLng tempLoc = new LatLng(fishLocation.getLatitude(),fishLocation.getLongitude());
 
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(tempLoc)
-                .title("Pelle den " + mFishCounter + ".")
-                .snippet(snippet);
+       // MarkerOptions markerOptions = new MarkerOptions()
+               // .position(new LatLng(fishLocation.getLatitude(), fishLocation.getLongitude()));
+
+        double lat = fishLocation.getLatitude();
+        double lon = fishLocation.getLongitude();
+        LatLng tempLoc = new LatLng(lat,lon);
 
 
-
+        Marker marker = mMap.addMarker(new MarkerOptions().position(tempLoc));
+        mFishMarkers.add(marker);
       //  Log.d("Marker", kittenLocation.toString());
 
-        Marker fishMarker = mMap.addMarker(markerOptions);
-        mFishMarkers.add(fishMarker);
+        //Marker fishMarker = mMap.addMarker(markerOptions);
+
     }
 }

@@ -1,7 +1,11 @@
 package com.example.morten.fiskebanken.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -28,7 +32,7 @@ import java.util.Date;
 public class RegisterActivity extends AppCompatActivity{
 
 
-
+    BroadcastReceiver getLocationFromBroadcast;
     static Bitmap photo;
     private static FishDataSource fishDataSource;
     private int fishNumber = 0;
@@ -39,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity{
     EditText mEdit3;
     ImageView mImageView;
     LocationFinder mLocationFinder;
+    Location mLoc;
    // private FiskeService fiskeService;
 
     @Override
@@ -98,11 +103,14 @@ public class RegisterActivity extends AppCompatActivity{
         startService(new Intent(this, FiskeService.class));
 
     }
+    public void setLocation(Location location){
+       mLoc = location;
+       MapsActivity.addFishMarker(mLoc);
+    }
 
     private void sendImageToMap(){
         Intent i = new Intent("ForceLocationUpdate");
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
-        MapsActivity.addFishMarker(mLocationFinder.GetPosition(), "Fish");
     }
 
     String mCurrentPhotoPath;

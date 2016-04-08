@@ -9,6 +9,8 @@ import android.location.Location;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.example.morten.fiskebanken.activities.RegisterActivity;
+
 /**
  * Created by Morten on 06.04.2016.
  */
@@ -16,6 +18,7 @@ public class FiskeService extends IntentService{
 
    LocationFinder locationFinder;
    BroadcastReceiver forceUpdateReciever;
+    static RegisterActivity ra = new RegisterActivity();
 
    public FiskeService(String name){
        super(name);
@@ -43,16 +46,24 @@ public class FiskeService extends IntentService{
                 Location lastKnownLocation = locationFinder.GetPosition();
                 if (lastKnownLocation != null) {
                     System.out.println("Location found, updating");
-                    System.out.println(lastKnownLocation);
+                    ra.setLocation(lastKnownLocation);
                     Runnable r = new RequestApiThread(lastKnownLocation);
                     new Thread(r).start();
                 }
                 else{
                     System.out.println("Location cant be found");
                 }
+
             }
         };
         LocalBroadcastManager.getInstance(this).registerReceiver(forceUpdateReciever, new IntentFilter("ForceLocationUpdate"));
+    }
+
+    public void sendToRegister(Location loc){
+        Intent i = new Intent("getLocationFromBroadcast");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
+
+
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){

@@ -17,7 +17,7 @@ public class Location implements Parcelable {
     public Location(Parcel in){
         String[] data = new String[1];
         in.readStringArray(data);
-        this.Loc = data[0];
+      //  this.Loc = data[0];
     }
 
     @Override
