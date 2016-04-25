@@ -73,8 +73,7 @@ public class FiskeService extends IntentService{
     private void sendLocationToActivity(){
 
     }
-
-    public void RequestApiCall(Location location){
+     public void RequestApiCall(Location location){
 
 
     }

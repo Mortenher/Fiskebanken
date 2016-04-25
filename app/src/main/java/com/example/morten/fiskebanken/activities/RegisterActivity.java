@@ -1,9 +1,9 @@
 package com.example.morten.fiskebanken.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.net.Uri;
@@ -22,6 +22,7 @@ import com.example.morten.fiskebanken.R;
 import com.example.morten.fiskebanken.database.FishDataSource;
 import com.example.morten.fiskebanken.services.FiskeService;
 import com.example.morten.fiskebanken.services.LocationFinder;
+import com.example.morten.fiskebanken.utility.NotificationReceiver;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,7 +60,10 @@ public class RegisterActivity extends AppCompatActivity{
             e.printStackTrace();
         }
 
-
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+        am.setRepeating(am.RTC_WAKEUP, System.currentTimeMillis(), am.INTERVAL_DAY*7, pendingIntent);
 
         mButton = (Button)findViewById(R.id.registrerfisk);
         mButton1 = (Button) findViewById(R.id.tabilde);
@@ -89,6 +93,8 @@ public class RegisterActivity extends AppCompatActivity{
 
                     }
                 }
+
+
         );
 
         mButton1.setOnClickListener(
@@ -157,17 +163,5 @@ public class RegisterActivity extends AppCompatActivity{
         }
     }
 
-    /*public static byte[] getBytes(Bitmap bitmap){
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        return stream.toByteArray();
-    }*/
 
-
-      /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-           photo = (Bitmap) data.getExtras().get("data");
-            //mImageView.setImageBitmap(photo);
-        }
-    }*/
 }

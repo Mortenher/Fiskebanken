@@ -38,6 +38,7 @@
         <service android:name=".services.FiskeService"
             android:enabled="true"
             android:exported="true" />
+        <receiver android:name=".utility.NotificationReceiver"></receiver>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

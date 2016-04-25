@@ -185,11 +185,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng tempLoc = new LatLng(lat,lon);
 
 
-        Marker marker = mMap.addMarker(new MarkerOptions().position(tempLoc));
-        mFishMarkers.add(marker);
-      //  Log.d("Marker", kittenLocation.toString());
-
-        //Marker fishMarker = mMap.addMarker(markerOptions);
+        for(Marker mark : mFishMarkers){
+            mMap.addMarker(new MarkerOptions().position(tempLoc));
+            mFishMarkers.add(mark);
+        }
+       // Marker marker = mMap.addMarker(new MarkerOptions().position(tempLoc));
+        //mFishMarkers.add(marker);
 
     }
 }
