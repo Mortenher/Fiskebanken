@@ -43,6 +43,11 @@
         android:layout_below="@id/fiskelengde"
         android:layout_toRightOf="@id/registrerfisk"
         android:layout_toEndOf="@id/registrerfisk"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/errormessage"
+        android:layout_below="@id/registrerfisk"/>
     <ImageView
         android:id="@+id/finnbilde"
         android:layout_width="wrap_content"

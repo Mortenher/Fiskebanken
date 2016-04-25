@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.morten.fiskebanken.utility.Fisk;
 import com.example.morten.fiskebanken.R;
@@ -42,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity{
     EditText mEdit1;
     EditText mEdit2;
     EditText mEdit3;
+    TextView mEdit4;
     ImageView mImageView;
     LocationFinder mLocationFinder;
     Location mLoc;
@@ -70,6 +72,7 @@ public class RegisterActivity extends AppCompatActivity{
         mEdit1 = (EditText)findViewById(R.id.fisketype);
         mEdit2 = (EditText)findViewById(R.id.fiskevekt);
         mEdit3 = (EditText)findViewById(R.id.fiskelengde);
+        mEdit4 = (TextView)findViewById(R.id.errormessage);
         mImageView = (ImageView) findViewById(R.id.finnbilde);
 
         mButton.setOnClickListener(
@@ -77,15 +80,24 @@ public class RegisterActivity extends AppCompatActivity{
                     @Override
                     public void onClick(View view) {
 
-                        Fisk fisk = fishDataSource.createFisk(mEdit1.getText().toString(),
-                                Double.parseDouble(mEdit2.getText().toString()),
-                                Double.parseDouble(mEdit3.getText().toString()),
-                                mCurrentPhotoPath
+                        if(mCurrentPhotoPath == null){
+                            mEdit4.setText("Du må ta et bilde?");
+                        }
+                        else {
+                            Fisk fisk = fishDataSource.createFisk(mEdit1.getText().toString(),
+                                    Double.parseDouble(mEdit2.getText().toString()),
+                                    Double.parseDouble(mEdit3.getText().toString()),
+                                    mCurrentPhotoPath
 
-                        );
+                            );
+                            try {
+                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                            }
+                            catch (Exception e){
 
+                            }
+                        }
                         sendImageToMap();
-
 
                         //System.out.println(mLocationFinder.GetPosition());
                         //   MapsActivity.addFishMarker(mLocationFinder.GetPosition(), "Fish");
