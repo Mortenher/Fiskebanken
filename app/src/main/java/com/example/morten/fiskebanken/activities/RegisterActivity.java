@@ -33,6 +33,7 @@ import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity{
 
+    WidgetActivity wa;
 
     BroadcastReceiver getLocationFromBroadcast;
     static Bitmap photo;
@@ -98,9 +99,6 @@ public class RegisterActivity extends AppCompatActivity{
                             }
                         }
                         sendImageToMap();
-//
-                        //System.out.println(mLocationFinder.GetPosition());
-                        //   MapsActivity.addFishMarker(mLocationFinder.GetPosition(), "Fish");
 
 
                     }

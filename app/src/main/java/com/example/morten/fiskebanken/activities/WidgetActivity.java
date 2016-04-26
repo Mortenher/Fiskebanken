@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.example.morten.fiskebanken.R;
@@ -23,8 +24,9 @@ import java.util.List;
 public class WidgetActivity extends AppWidgetProvider {
 
 
-    static FishDataSource fishDataSource;
-    static String fishtype;
+
+    FishDataSource fishDataSource;
+    String fishtype;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
