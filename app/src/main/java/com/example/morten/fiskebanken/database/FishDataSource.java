@@ -43,7 +43,7 @@ public class FishDataSource {
         return getFisk(insertId);
     }
 
-    private Fisk cursorToFisk(Cursor cursor){
+    public static Fisk cursorToFisk(Cursor cursor){
         Fisk fisk = new Fisk();
         fisk.setId(cursor.getInt(0));
         fisk.setType(cursor.getString(1));

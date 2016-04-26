@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09C"
+    android:padding="@dimen/widget_margin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fiske-widget"
+        android:id="@+id/appwidget_text"
+        android:layout_centerHorizontal="true"
+        android:textSize="35dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/widgetbutton"
+        android:text="Widget"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="61dp"
+        android:layout_below="@+id/appwidget_text"/>
+
+</RelativeLayout>

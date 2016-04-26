@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity{
                     public void onClick(View view) {
 
                         if(mCurrentPhotoPath == null){
-                            mEdit4.setText("Du må ta et bilde?");
+                            mEdit4.setText("Du må ta et bilde!");
                         }
                         else {
                             Fisk fisk = fishDataSource.createFisk(mEdit1.getText().toString(),

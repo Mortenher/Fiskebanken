@@ -16,4 +16,6 @@
     <string name="none">None</string>
     <string name="add_fisk">Fish attack!</string>
     <string name="remove_fisk">Remove fish</string>
+    <string name="appwidget_text">Fish Widget</string>
+    <string name="add_widget">Add widget</string>
 </resources>

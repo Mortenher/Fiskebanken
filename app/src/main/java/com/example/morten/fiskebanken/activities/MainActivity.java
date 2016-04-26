@@ -3,7 +3,10 @@ package com.example.morten.fiskebanken.activities;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.example.morten.fiskebanken.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int NOTIFICATION_ID = 1;
-    private int _mNotificationCount = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
