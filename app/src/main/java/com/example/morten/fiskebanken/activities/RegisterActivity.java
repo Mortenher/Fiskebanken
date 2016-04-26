@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity{
                             }
                         }
                         sendImageToMap();
-
+//
                         //System.out.println(mLocationFinder.GetPosition());
                         //   MapsActivity.addFishMarker(mLocationFinder.GetPosition(), "Fish");
 
