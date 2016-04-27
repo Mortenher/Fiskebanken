@@ -33,9 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.ShowfishActivity" />
         <!-- <activity android:name=".FishListAdapter" /> -->
@@ -70,6 +67,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_activity_info" />
         </receiver>
+
+        <activity android:name=".activities.FishinfoActivity"></activity>
     </application>
 
 </manifest>

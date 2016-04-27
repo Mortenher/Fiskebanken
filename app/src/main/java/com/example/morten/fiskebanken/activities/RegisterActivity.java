@@ -90,6 +90,9 @@ public class RegisterActivity extends AppCompatActivity{
                         }
                         else {
                             mLoc = mLocationFinder.GetPosition();
+                            if(mLoc == null){
+                                mEdit4.setText("Finner ikke din posisjon, kan ikke registrerers");
+                            }
                             Fisk fisk = fishDataSource.createFisk(mEdit1.getText().toString(),
                                     Double.parseDouble(mEdit2.getText().toString()),
                                     Double.parseDouble(mEdit3.getText().toString()),

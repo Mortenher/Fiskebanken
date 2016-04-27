@@ -3,6 +3,7 @@ package com.example.morten.fiskebanken.activities;
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,6 +38,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
         AdapterView.OnItemSelectedListener,
@@ -239,8 +241,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-        Marker mark =  mMap.addMarker(new MarkerOptions().position(tempLoc).icon(bm).snippet("Ha Hallo!"));
-        mFishMarkers.add(mark);
+        Marker mark =  mMap.addMarker(new MarkerOptions().position(tempLoc).icon(bm).snippet(f.getId()+""));
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                visFisk(Integer.parseInt(marker.getSnippet()));
+                return false;
+            }
+        });
+            mFishMarkers.add(mark);
+
         }
+    }
+
+    private void visFisk(int position){
+        Intent intent = new Intent(MapsActivity.this, FishinfoActivity.class);
+        intent.putExtra("Id",position);
+        startActivity(intent);
     }
 }
