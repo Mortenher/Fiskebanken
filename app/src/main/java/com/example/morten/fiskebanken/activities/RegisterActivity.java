@@ -54,6 +54,8 @@ public class RegisterActivity extends AppCompatActivity{
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        mLocationFinder = new LocationFinder(this);
+        mLoc = mLocationFinder.GetPosition();
 
         fishDataSource = new FishDataSource(this);
         try{
@@ -66,7 +68,9 @@ public class RegisterActivity extends AppCompatActivity{
         Intent intent = new Intent(this, NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
         AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-        am.setRepeating(am.RTC_WAKEUP, System.currentTimeMillis(), am.INTERVAL_DAY*7, pendingIntent);
+        //Current time pluss ei uga
+        am.set(am.RTC_WAKEUP, System.currentTimeMillis() + 604800000, pendingIntent);
+        //am.setRepeating(am.RTC_WAKEUP, System.currentTimeMillis(), am.INTERVAL_DAY*7, pendingIntent);
 
         mButton = (Button)findViewById(R.id.registrerfisk);
         mButton1 = (Button) findViewById(R.id.tabilde);
@@ -85,20 +89,23 @@ public class RegisterActivity extends AppCompatActivity{
                             mEdit4.setText("Du må ta et bilde!");
                         }
                         else {
+                            mLoc = mLocationFinder.GetPosition();
                             Fisk fisk = fishDataSource.createFisk(mEdit1.getText().toString(),
                                     Double.parseDouble(mEdit2.getText().toString()),
                                     Double.parseDouble(mEdit3.getText().toString()),
-                                    mCurrentPhotoPath
-
+                                    mCurrentPhotoPath,
+                                    mLoc.getLatitude(),
+                                    mLoc.getLongitude()
                             );
+                           // sendImageToMap();
                             try {
-                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                //startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                exitActivity();
                             }
                             catch (Exception e){
 
                             }
                         }
-                        sendImageToMap();
 
 
                     }
@@ -119,6 +126,11 @@ public class RegisterActivity extends AppCompatActivity{
         startService(new Intent(this, FiskeService.class));
 
     }
+
+    private void exitActivity(){
+        this.finish();
+    }
+
     public void setLocation(Location location){
        mLoc = location;
        MapsActivity.addFishMarker(mLoc);

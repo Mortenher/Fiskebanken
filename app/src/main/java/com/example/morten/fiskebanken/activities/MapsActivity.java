@@ -4,6 +4,8 @@ import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.example.morten.fiskebanken.database.FishDataSource;
 import com.example.morten.fiskebanken.utility.Fisk;
 import com.example.morten.fiskebanken.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,12 +27,16 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
         AdapterView.OnItemSelectedListener,
@@ -37,6 +44,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     static GoogleMap mMap;
 
+    private static FishDataSource fishDataSource;
     private LatLng HIOF = new LatLng(59.12797849, 11.35272861);
    static private ArrayList<Marker> mFishMarkers;
    static private int mFishCounter = 0;
@@ -54,6 +62,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         mFishMarkers = new ArrayList<>();
+
+        fishDataSource = new FishDataSource(this);
+        try{
+            fishDataSource.open();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
 
         Spinner spinner = (Spinner)findViewById(R.id.layers_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -136,6 +153,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.setMyLocationEnabled(true);
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(HIOF, 13, 0, 0)));
         }
+
+        leggTilFisk();
     }
 
     @Override
@@ -183,14 +202,45 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         double lat = fishLocation.getLatitude();
         double lon = fishLocation.getLongitude();
         LatLng tempLoc = new LatLng(lat,lon);
+        System.out.println("TempLoc: " + tempLoc);
 
 
-        for(Marker mark : mFishMarkers){
-            mMap.addMarker(new MarkerOptions().position(tempLoc));
-            mFishMarkers.add(mark);
-        }
+
+
+          Marker mark =  mMap.addMarker(new MarkerOptions().position(tempLoc));
+          mFishMarkers.add(mark);
+
        // Marker marker = mMap.addMarker(new MarkerOptions().position(tempLoc));
         //mFishMarkers.add(marker);
 
+    }
+
+    public Bitmap resizeMapIcons(String iconName,int width, int height){
+        Bitmap b = BitmapFactory.decodeFile(iconName);
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(b, width, height, false);
+        return resizedBitmap;
+    }
+
+    private void leggTilFisk(){
+
+        List<Fisk> fisker = fishDataSource.getAllFisk();
+
+        for(Fisk f:fisker){
+
+
+        double lat = f.getLat();
+            double lon = f.getLng();
+            LatLng tempLoc = new LatLng(lat,lon);
+        System.out.println("TempLoc: " + tempLoc);
+        String bilde = f.getBilde();
+
+            Bitmap b = resizeMapIcons(bilde,100,100);
+            BitmapDescriptor bm = BitmapDescriptorFactory.fromBitmap(b);
+
+
+
+        Marker mark =  mMap.addMarker(new MarkerOptions().position(tempLoc).icon(bm).snippet("Ha Hallo!"));
+        mFishMarkers.add(mark);
+        }
     }
 }

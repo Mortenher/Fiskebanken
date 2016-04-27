@@ -2,6 +2,7 @@ package com.example.morten.fiskebanken.services;
 
 import android.Manifest;
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -22,10 +23,10 @@ public class LocationFinder extends Application implements GoogleApiClient.Conne
 
     private GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
-    private com.example.morten.fiskebanken.services.FiskeService FiskeService;
+    private Context FiskeService;
 
 
-   public LocationFinder(FiskeService fiskeService){
+   public LocationFinder(Context fiskeService){
         FiskeService = fiskeService;
         mGoogleApiClient = new GoogleApiClient.Builder(fiskeService)
                 .addConnectionCallbacks(this)
@@ -57,9 +58,6 @@ public class LocationFinder extends Application implements GoogleApiClient.Conne
     public void requestLocationUpdate() {
 
         LocationRequest mLocationRequest = LocationRequest.create();
-        mLocationRequest.setInterval(2000);
-        mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setSmallestDisplacement(50);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         //Checking if the app has sufficient permissions to request location
@@ -81,6 +79,7 @@ public class LocationFinder extends Application implements GoogleApiClient.Conne
 
     @Override
     public void onConnected(Bundle bundle) {
+
         requestLocationUpdate();
     }
 
@@ -91,7 +90,8 @@ public class LocationFinder extends Application implements GoogleApiClient.Conne
 
     @Override
     public void onLocationChanged(Location location) {
-      FiskeService.RequestApiCall(location);
+      mLastLocation = location;
+        //FiskeService.RequestApiCall(location);
     }
 
     @Override

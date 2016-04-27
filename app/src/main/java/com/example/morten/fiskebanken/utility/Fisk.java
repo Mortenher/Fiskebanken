@@ -10,6 +10,8 @@ public class Fisk {
     double vekt;
     double lengde;
     String bilde;
+    double lat;
+    double lng;
 
     /*public Fisk(int id, String type, double vekt, double lengde) {
         this.id = id;
@@ -49,5 +51,10 @@ public class Fisk {
     }
 
     public void setBilde(String bilde){this.bilde = bilde;}
+
+    public double getLat(){return lat;}
+    public double getLng(){return lng;}
+    public void setLat(double lat){this.lat = lat;}
+    public void setLng(double lng){this.lng = lng;}
 
 }
