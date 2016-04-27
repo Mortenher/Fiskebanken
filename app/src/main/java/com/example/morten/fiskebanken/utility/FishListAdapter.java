@@ -18,6 +18,7 @@ public class FishListAdapter extends ArrayAdapter<Fisk> {
         super(context, resource);
     }
 
+    //Hjelpeklasse for å sette inn informasjon om fisk i liste
     @Override
     public View getView(int position,View convertView, ViewGroup parent){
         View view = convertView;

@@ -45,12 +45,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         GoogleMap.OnMapLongClickListener {
 
     static GoogleMap mMap;
-
     private static FishDataSource fishDataSource;
-    private LatLng HIOF = new LatLng(59.12797849, 11.35272861);
-   static private ArrayList<Marker> mFishMarkers;
-   static private int mFishCounter = 0;
-    Fisk fisk;
+   // private LatLng HIOF = new LatLng(59.12797849, 11.35272861);
+    static private ArrayList<Marker> mFishMarkers;
 
 
     @Override
@@ -63,6 +60,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.maps);
         mapFragment.getMapAsync(this);
 
+        //Arrayliste som skal holde på markører
         mFishMarkers = new ArrayList<>();
 
         fishDataSource = new FishDataSource(this);
@@ -83,6 +81,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
+    //Setter innstillinger på kartet
     private void setUiSettings() {
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setTiltGesturesEnabled(true);
@@ -104,44 +103,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        switch (id){
-            case R.id.add_fisk:
-                for (Marker fishMarker : mFishMarkers)
-                    animateMarker(fishMarker, HIOF);
-                break;
-            case R.id.remove_fisk:
-                removeAllFishMarkers();
-                break;
-            default:
-                break;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
-    private void removeAllFishMarkers(){
-        for (Marker fishMarker: mFishMarkers){
-            fishMarker.remove();
-        }
-        mFishMarkers.clear();
-        mFishCounter = 0;
-    }
-
-    static void animateMarker (Marker marker, LatLng finalPosition){
-        TypeEvaluator<LatLng> typeEvaluator = new TypeEvaluator<LatLng>() {
-            @Override
-            public LatLng evaluate(float fraction, LatLng startValue, LatLng endValue) {
-                double lat = (endValue.latitude - startValue.latitude) * fraction + startValue.latitude;
-                double lng = (endValue.longitude - startValue.longitude) * fraction + startValue.longitude;
-                return new LatLng(lat, lng);
-            }
-        };
-        Property<Marker, LatLng> property = Property.of(Marker.class, LatLng.class, "position");
-        ObjectAnimator animator = ObjectAnimator.ofObject(marker, property, typeEvaluator, finalPosition);
-        animator.setDuration(1000);
-        animator.start();
-    }
-
+    //Sjekker om kartet er klart
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -153,12 +118,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return;
             }
             mMap.setMyLocationEnabled(true);
-            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(HIOF, 13, 0, 0)));
+           // mMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(HIOF, 13, 0, 0)));
         }
-
+        //Hvis kartet er klart, legg til markører på kartet
         leggTilFisk();
     }
 
+    //Endre utseende på kartet
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String layerType = (String)parent.getItemAtPosition(position);
@@ -187,42 +153,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapLongClick(LatLng latLng) {
-        //addFishMarker(latLng, "Fish image!");
-    }
-
-    static void addFishMarker(Location fishLocation){
-
-        //BitmapDescriptor kittenIcon = BitmapDescriptorFactory.fromResource(
-             //   getResources().getIdentifier("fish_background" + (mFishCounter % 3 + 1), "drawable", this.getPackageName()));
-
-        //mFishCounter++;
-       // LatLng tempLoc = new LatLng(fishLocation.getLatitude(),fishLocation.getLongitude());
-
-       // MarkerOptions markerOptions = new MarkerOptions()
-               // .position(new LatLng(fishLocation.getLatitude(), fishLocation.getLongitude()));
-
-        double lat = fishLocation.getLatitude();
-        double lon = fishLocation.getLongitude();
-        LatLng tempLoc = new LatLng(lat,lon);
-        System.out.println("TempLoc: " + tempLoc);
-
-
-
-
-          Marker mark =  mMap.addMarker(new MarkerOptions().position(tempLoc));
-          mFishMarkers.add(mark);
-
-       // Marker marker = mMap.addMarker(new MarkerOptions().position(tempLoc));
-        //mFishMarkers.add(marker);
 
     }
 
+
+    //Ordne bildestørrelse så de ikke skal dekke hele kartet
     public Bitmap resizeMapIcons(String iconName,int width, int height){
         Bitmap b = BitmapFactory.decodeFile(iconName);
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(b, width, height, false);
         return resizedBitmap;
     }
 
+    //Legger til markører på kartet, henter location fra database
     private void leggTilFisk(){
 
         List<Fisk> fisker = fishDataSource.getAllFisk();
@@ -231,16 +173,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         double lat = f.getLat();
-            double lon = f.getLng();
-            LatLng tempLoc = new LatLng(lat,lon);
-        System.out.println("TempLoc: " + tempLoc);
+        double lon = f.getLng();
+        LatLng tempLoc = new LatLng(lat,lon);
         String bilde = f.getBilde();
 
-            Bitmap b = resizeMapIcons(bilde,100,100);
-            BitmapDescriptor bm = BitmapDescriptorFactory.fromBitmap(b);
+        Bitmap b = resizeMapIcons(bilde,100,100);
+        BitmapDescriptor bm = BitmapDescriptorFactory.fromBitmap(b);
 
 
-
+        //Markør som sender med ID slik at man kan bli sendt til Fishinfoactivity
         Marker mark =  mMap.addMarker(new MarkerOptions().position(tempLoc).icon(bm).snippet(f.getId()+""));
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override

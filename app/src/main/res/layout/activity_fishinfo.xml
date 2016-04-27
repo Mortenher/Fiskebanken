@@ -36,8 +36,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/fishinfo2"
         android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/fishinfo1"
-        android:layout_alignStart="@+id/fishinfo1" />
+        android:layout_centerHorizontal="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,10 +48,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fishinfo4"
-        android:text="MAKE MY LIFE EASY"
+        android:text="Sammenlign gjennomsnittet med din fisk"
+        android:layout_marginTop="16dp"
         android:layout_below="@+id/fishinfo3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp" />
+        android:layout_centerHorizontal="true" />
+
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -60,5 +60,23 @@
         android:layout_below="@+id/fishinfo4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="129dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/fishinfo6"
+        android:layout_below="@+id/fishinfo4"
+        android:layout_alignLeft="@+id/fishinfo3"
+        android:layout_alignStart="@+id/fishinfo3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/fishinfo7"
+        android:layout_below="@+id/fishinfo6"
+        android:layout_alignLeft="@+id/fishinfo6"
+        android:layout_alignStart="@+id/fishinfo6" />
 
 </RelativeLayout>

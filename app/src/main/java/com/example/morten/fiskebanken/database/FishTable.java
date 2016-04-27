@@ -16,6 +16,7 @@ public class FishTable {
     public static final String COLUMN_LAT = "lat";
     public static final String COLUMN_LONG = "long";
 
+    //Lage database
     public static final String DATABASE_CREATE_FISH =
             "create table " + TABLE_FISH + "(" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +

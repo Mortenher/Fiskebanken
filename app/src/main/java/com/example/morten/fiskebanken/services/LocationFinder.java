@@ -25,7 +25,7 @@ public class LocationFinder extends Application implements GoogleApiClient.Conne
     Location mLastLocation;
     private Context FiskeService;
 
-
+    //Konstruktør for å lage LocationFinder
    public LocationFinder(Context fiskeService){
         FiskeService = fiskeService;
         mGoogleApiClient = new GoogleApiClient.Builder(fiskeService)
@@ -37,7 +37,7 @@ public class LocationFinder extends Application implements GoogleApiClient.Conne
     }
 
 
-
+    //Metode for å finne din posisjon
     public Location GetPosition() {
         try {
             if (ActivityCompat.checkSelfPermission(FiskeService, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(FiskeService, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -60,7 +60,7 @@ public class LocationFinder extends Application implements GoogleApiClient.Conne
         LocationRequest mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        //Checking if the app has sufficient permissions to request location
+        //Sjekker om appen har lov til å spørre etter location
        try {
            if (ActivityCompat.checkSelfPermission(FiskeService, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(FiskeService, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                return;
@@ -69,17 +69,12 @@ public class LocationFinder extends Application implements GoogleApiClient.Conne
        catch(Exception e){
            e.printStackTrace();
        }
-        //Requesting that play services trigger callback method "onLocationChanged" whenever location changes.
+        //Spør om at play servicen skal trigge callback metode når location er endret
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-    }
-
-    public void unRequestLocationUpdate(){
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
     @Override
     public void onConnected(Bundle bundle) {
-
         requestLocationUpdate();
     }
 
@@ -91,7 +86,6 @@ public class LocationFinder extends Application implements GoogleApiClient.Conne
     @Override
     public void onLocationChanged(Location location) {
       mLastLocation = location;
-        //FiskeService.RequestApiCall(location);
     }
 
     @Override

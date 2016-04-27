@@ -19,6 +19,7 @@ public class FishDataSource {
     private SQLiteDatabase database;
     private SQLiteHelper dbHelper;
 
+    //Alle kolonner i tabellen
     private String[] allFishColumns = {
             FishTable.COLUMN_ID,
             FishTable.COLUMN_TYPE,
@@ -29,10 +30,12 @@ public class FishDataSource {
             FishTable.COLUMN_LONG
     };
 
+    //SQLite helper
     public FishDataSource(Context context){
         dbHelper = new SQLiteHelper(context);
     }
 
+    //Lage fiskeobjekt, legge til i database
     public Fisk createFisk(String type, double vekt, double lengde, String bilde, double lat, double lng){
         ContentValues values = new ContentValues();
         values.put(FishTable.COLUMN_TYPE, type);
@@ -47,6 +50,7 @@ public class FishDataSource {
         return getFisk(insertId);
     }
 
+    //Peker til de forskjellige verdiene
     public static Fisk cursorToFisk(Cursor cursor){
         Fisk fisk = new Fisk();
         fisk.setId(cursor.getInt(0));
@@ -60,6 +64,7 @@ public class FishDataSource {
         return fisk;
     }
 
+    //Finne fisk med ID
     private Fisk getFisk(long id){
         Cursor cursor = database.query(FishTable.TABLE_FISH,
                 allFishColumns,
@@ -73,6 +78,7 @@ public class FishDataSource {
         return fisk;
     }
 
+    //Hente alle fisk fra tabellen
     public List<Fisk> getAllFisk(){
         List<Fisk> fisker = new ArrayList<>();
 

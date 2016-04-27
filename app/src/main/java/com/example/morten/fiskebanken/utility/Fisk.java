@@ -13,13 +13,6 @@ public class Fisk {
     double lat;
     double lng;
 
-    /*public Fisk(int id, String type, double vekt, double lengde) {
-        this.id = id;
-        this.type = type;
-        this.vekt = vekt;
-        this.lengde = lengde;
-    }*/
-
     public int getId() {return id; }
 
     public String getType() {

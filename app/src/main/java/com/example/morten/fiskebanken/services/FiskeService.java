@@ -16,8 +16,8 @@ import com.example.morten.fiskebanken.activities.RegisterActivity;
  */
 public class FiskeService extends IntentService{
 
-   LocationFinder locationFinder;
-   BroadcastReceiver forceUpdateReciever;
+    LocationFinder locationFinder;
+    BroadcastReceiver forceUpdateReciever;
     static RegisterActivity ra = new RegisterActivity();
 
    public FiskeService(String name){
@@ -37,8 +37,9 @@ public class FiskeService extends IntentService{
     @Override
     public void onCreate(){
 
+        //Setter opp en locationfinder
         locationFinder = new LocationFinder(this);
-
+        //Setter location om funnet, starter ny tråd som stadig oppdaterer location
         forceUpdateReciever = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -46,8 +47,7 @@ public class FiskeService extends IntentService{
                 Location lastKnownLocation = locationFinder.GetPosition();
                 if (lastKnownLocation != null) {
                     System.out.println("Location found, updating");
-                    ra.setLocation(lastKnownLocation);
-                    Runnable r = new RequestApiThread(lastKnownLocation);
+                    Runnable r = new RequestLocationThread(lastKnownLocation);
                     new Thread(r).start();
                 }
                 else{
@@ -59,27 +59,14 @@ public class FiskeService extends IntentService{
         LocalBroadcastManager.getInstance(this).registerReceiver(forceUpdateReciever, new IntentFilter("ForceLocationUpdate"));
     }
 
-    public void sendToRegister(Location loc){
-        Intent i = new Intent("getLocationFromBroadcast");
-        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
-
-
-    }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         return START_STICKY;
     }
-
-    private void sendLocationToActivity(){
-
-    }
-     public void RequestApiCall(Location location){
-
-
-    }
-    public class RequestApiThread implements Runnable{
+    //Metoden som tar for seg oppdatering av location på ny tråd
+    public class RequestLocationThread implements Runnable{
         Location location;
-        public RequestApiThread(Location location){
+        public RequestLocationThread(Location location){
             this.location = location;
         }
         public void run(){

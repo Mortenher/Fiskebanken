@@ -21,15 +21,13 @@ public class ShowfishActivity extends AppCompatActivity {
 
     private FishDataSource fishDataSource;
     private FishListAdapter adapter;
-    RegisterActivity registerActivity;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showfish);
 
+        //Database-connection
         fishDataSource = new FishDataSource(this);
         try {
             fishDataSource.open();
@@ -41,18 +39,12 @@ public class ShowfishActivity extends AppCompatActivity {
 
         List<Fisk> fisker = fishDataSource.getAllFisk();
 
-
-
-    /*
-        ImageView imageView = (ImageView) findViewById(R.id.fiskebilde);
-        Bitmap bitmap = BitmapFactory.decodeFile(registerActivity.getmCurrentPhotoPath());
-        imageView.setImageBitmap(bitmap);
-    */
-
+        //Fyller listen med fiskeobjekter
         adapter = new FishListAdapter(this, android.R.layout.simple_list_item_1);
         listView.setAdapter(adapter);
         adapter.addAll(fisker);
 
+        //Onclick fra listen som tar deg til Infoaktivitet om den valgte fisken
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -60,7 +52,7 @@ public class ShowfishActivity extends AppCompatActivity {
             }
         });
     }
-
+    //Metoden som blir kalt i onclick på liste
     private void visFisk(int position){
         Fisk f = adapter.getItem(position);
         Intent intent = new Intent(ShowfishActivity.this, FishinfoActivity.class);

@@ -22,6 +22,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     protected void showNotification(final Context context){
         final Intent intent = new Intent(context, RegisterActivity.class);
 
+            //Notification klasse som sier hva som skal stå, vises og lyden som skal lages.
             PendingIntent pi = PendingIntent.getActivity(context, 1, intent, 0);
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.fishicon)

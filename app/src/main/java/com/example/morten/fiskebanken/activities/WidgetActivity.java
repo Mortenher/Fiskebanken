@@ -47,6 +47,8 @@ public class WidgetActivity extends AppWidgetProvider {
             startInternet(context, appWidgetManager, i);
         }
     }
+
+    //Metode for å kunne se wikipedia artikkel om sist fanget fisk
     private void startInternet(Context context, AppWidgetManager appWidgetManager, int widgetID){
 
         fishDataSource = new FishDataSource(context);
@@ -56,12 +58,14 @@ public class WidgetActivity extends AppWidgetProvider {
             e.printStackTrace();
         }
 
+        //Finner siste element lagt til i listen
         List<Fisk> fisker = fishDataSource.getAllFisk();
         for(Fisk fisk : fisker){
             Fisk fisken = fisker.get(fisker.size() - 1);
             fishtype = fisken.getType();
         }
 
+        //Setter opp intent for widgeten
         RemoteViews widgetView = new RemoteViews(context.getPackageName(), R.layout.widget_activity);
         Uri uri = Uri.parse("http://no.wikipedia.org/wiki/" + fishtype);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -71,12 +75,7 @@ public class WidgetActivity extends AppWidgetProvider {
 
         appWidgetManager.updateAppWidget(widgetID, widgetView);
 
-
-
     }
-
-
-
 
     @Override
     public void onEnabled(Context context) {
@@ -85,7 +84,7 @@ public class WidgetActivity extends AppWidgetProvider {
 
     @Override
     public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
+
     }
 }
 
