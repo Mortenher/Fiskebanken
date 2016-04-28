@@ -46,7 +46,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     static GoogleMap mMap;
     private static FishDataSource fishDataSource;
-   // private LatLng HIOF = new LatLng(59.12797849, 11.35272861);
     static private ArrayList<Marker> mFishMarkers;
 
 
@@ -118,7 +117,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return;
             }
             mMap.setMyLocationEnabled(true);
-           // mMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(HIOF, 13, 0, 0)));
         }
         //Hvis kartet er klart, legg til markører på kartet
         leggTilFisk();

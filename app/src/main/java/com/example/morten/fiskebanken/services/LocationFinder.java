@@ -90,7 +90,7 @@ public class LocationFinder extends Application implements GoogleApiClient.Conne
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d("Error", "Cant connect");
+       
     }
 
 }

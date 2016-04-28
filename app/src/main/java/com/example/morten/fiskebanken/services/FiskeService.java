@@ -24,11 +24,11 @@ public class FiskeService extends IntentService{
        super(name);
    }
     public FiskeService(){
-        super("NewThread");
+        super("FiskeService");
     }
     @Override
     public IBinder onBind(Intent intent) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        throw new UnsupportedOperationException("Error");
     }
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -43,15 +43,14 @@ public class FiskeService extends IntentService{
         forceUpdateReciever = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                System.out.println("Recieved");
                 Location lastKnownLocation = locationFinder.GetPosition();
                 if (lastKnownLocation != null) {
-                    System.out.println("Location found, updating");
+                    System.out.println("Posisjon funnet, oppdaterer");
                     Runnable r = new RequestLocationThread(lastKnownLocation);
                     new Thread(r).start();
                 }
                 else{
-                    System.out.println("Location cant be found");
+                    System.out.println("Finner ikke posisjon");
                 }
 
             }
